@@ -22,18 +22,18 @@ var studentsArr = [
     }
 ];
 
-messageWrapper('Singolo studente:\n',studentDataToSting(student));
-messageWrapper('Lista studenti:\n',studentDataToSting(...studentsArr));
+messageWrapper(studentDataToSting(student), 'Singolo studente:\n');
+messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti:\n');
 
 
 function studentDataToSting(...students) {
     var outputMessage = '';
     for (var item of students) {
-        outputMessage += "Dati studente:\n";
+        outputMessage += "\nDati studente:\n\n";
         for (var prop in item) {
-            outputMessage += `${prop}: ${item[prop]}\n`;
+            outputMessage += `${prop}: ${item[prop]}\n\n`;
         }
-        outputMessage += '*'.repeat(5) + '\n';
+        outputMessage += '*'.repeat(10) + '\n';
     }
     return outputMessage
 }
@@ -45,10 +45,11 @@ function addStudent(studentsList) {
     student.eta = parseInt(prompt('inserire età'));
     studentsList.push(student);
 }
-function messageWrapper(intro="", message) {
+function messageWrapper(message, intro="", separator='='.repeat(20)) {
+    
     console.log(intro);
-    console.log('='.repeat(20));
+    console.log(separator);
     console.log(message);
-    console.log('='.repeat(20));
+    console.log(separator);
     console.log('\n')
 }
