@@ -27,11 +27,11 @@ messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti:\n');
 newStudent = addStudent();
 if (!objInArr(newStudent, studentsArr)) {
     studentsArr.push(newStudent);
-    alert('studente inserito in db')
+    alert('studente inserito in db');
+    messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti aggiornata:\n');
 } else {
     alert('studente già presente in db')
 }
-messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti aggiornata:\n');
 
 
 function studentDataToSting(...students) {
@@ -39,7 +39,8 @@ function studentDataToSting(...students) {
     for (var item of students) {
         outputMessage += "\nDati studente:\n\n";
         for (var prop in item) {
-            outputMessage += `${prop}: ${item[prop]}\n\n`;
+            propValueFormatted = item[prop].toString();
+            outputMessage += `${prop}: ${capitalize(propValueFormatted)}\n\n`;
         }
         outputMessage += '*'.repeat(10) + '\n';
     }
@@ -66,4 +67,8 @@ function objInArr(obj, arr) {
     // funzione abbastanza primitiva e soggetta a miliardi di potenziali falsi negativi, ma qua va bene
     var jsonArr = JSON.stringify(arr);
     return jsonArr.includes(JSON.stringify(obj));
+}
+
+function capitalize(word) {
+    return word[0].toUpperCase()+word.slice(1)
 }
