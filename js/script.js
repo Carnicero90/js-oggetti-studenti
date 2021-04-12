@@ -24,6 +24,9 @@ var studentsArr = [
 
 messageWrapper(studentDataToSting(student), 'Singolo studente:\n');
 messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti:\n');
+newStudent = addStudent();
+studentsArr.push(newStudent);
+messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti aggiornata:\n');
 
 
 function studentDataToSting(...students) {
@@ -38,12 +41,12 @@ function studentDataToSting(...students) {
     return outputMessage
 }
 
-function addStudent(studentsList) {
+function addStudent() {
     var student = {};
     student.nome = prompt('inserire nome');
     student.cognome = prompt('inserire cognome');
     student.eta = parseInt(prompt('inserire età'));
-    studentsList.push(student);
+    return student
 }
 function messageWrapper(message, intro="", separator='='.repeat(20)) {
     
