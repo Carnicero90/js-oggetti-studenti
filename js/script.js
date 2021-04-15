@@ -1,74 +1,70 @@
-var student = {
-    'nome': 'filippo',
-    'cognome': 'montani',
-    'eta': 19
+const student = {
+    nome: 'filippo',
+    cognome: 'montani',
+    eta: 19
 };
 
-var studentsArr = [
+const studentsArr = [
     {
-        'nome': 'mario',
-        'cognome': 'balotelli',
-        'eta': 400
+        nome: 'mario',
+        cognome: 'balotelli',
+        eta: 400
     },
     {
-        'nome': 'cesare',
-        'cognome': 'pavese',
-        'eta': 120
+        nome: 'cesare',
+        cognome: 'pavese',
+        eta: 120
+
     },
     {
-        'nome': 'jay',
-        'cognome': 'z',
-        'eta': 42
+        nome: 'jay',
+        cognome: 'z',
+        eta: 42
     }
 ];
 
-messageWrapper(studentDataToSting(student), 'Singolo studente:\n');
-messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti:\n');
-newStudent = addStudent();
-if (!objInArr(newStudent, studentsArr)) {
-    studentsArr.push(newStudent);
-    alert('studente inserito in db');
-    messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti aggiornata:\n');
-} else {
-    alert('studente già presente in db')
-}
+console.log(messageWrapper(studentDataToSting(student), 'Singolo studente:\n'));
+console.log(messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti:\n'));
+
+
+// const newStudent = addStudent();
+// studentsArr.push(newStudent);
+// alert('studente inserito in db');
+// console.log(messageWrapper(studentDataToSting(...studentsArr), 'Lista studenti aggiornata:\n'));
 
 
 function studentDataToSting(...students) {
-    var outputMessage = '';
-    for (var item of students) {
-        outputMessage += "\nDati studente:\n\n";
-        for (var prop in item) {
-            propValueFormatted = item[prop].toString();
-            outputMessage += `${prop}: ${capitalize(propValueFormatted)}\n\n`;
-        }
-        outputMessage += '*'.repeat(10) + '\n';
+
+    let output = '';
+
+    const outputMessage = function (data) {
+        return `**********\nDati studente:\n\n${data}\n**********\n`
     }
-    return outputMessage
+
+    students.forEach(student => {
+
+        let data = '';
+        for (let prop in student) {
+            const propValueFormatted = student[prop].toString();
+            data += `${prop}: ${capitalize(propValueFormatted)}\n`;
+        }
+        output += outputMessage(data);
+    })
+    return output
 }
 
+
 function addStudent() {
-    var student = {};
+    const student = {};
     student.nome = prompt('inserire nome').toLowerCase().trim();
     student.cognome = prompt('inserire cognome').toLowerCase().trim();
     student.eta = parseInt(prompt('inserire età'));
     return student
 }
-function messageWrapper(message, intro="", separator='='.repeat(20)) {
-    
-    console.log(intro);
-    console.log(separator);
-    console.log(message);
-    console.log(separator);
-    console.log('\n')
-}
-
-function objInArr(obj, arr) {
-    // funzione abbastanza primitiva e soggetta a miliardi di potenziali falsi negativi, ma qua va bene
-    var jsonArr = JSON.stringify(arr);
-    return jsonArr.includes(JSON.stringify(obj));
+function messageWrapper(message, intro = "", separator = '='.repeat(20)) {
+    return `${intro}\n${separator}\n${message}\n${separator}`
 }
 
 function capitalize(word) {
-    return word[0].toUpperCase()+word.slice(1)
+    return word[0].toUpperCase() + word.slice(1)
 }
